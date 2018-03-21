@@ -1,0 +1,425 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/blood.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>GraphQL</section>
+			<section>
+				<section>
+					<h5>What? When? Why?</h5>
+					<ul>
+						<li>Query language which provides a common interface between the client and the server for data fetching and manipulations</li>
+						<li>Created by Facebook in 2012</li>
+						<li>Made open source in 2015</li>
+						<li>FB started developing mobile apps and needed a data fetching API that would support their needs</li>
+					</ul>
+				</section>
+				<section>
+					<h5>Explain me like I'm five</h5>
+				</section>
+
+				<section data-background-image="img/five.png" data-background-size="contain"></section>
+
+				<section>
+					<ul>
+						<li>All about data communication</li>
+						<li>Why cant the the client just communicate directly with the server ? (efficiency)</li>
+						<li>Multiple resources, multiple round-trips </li>
+						<li>Single question - single response</li>
+					</ul>
+				</section>
+
+				<section data-background-image="img/five_2.png" data-background-size="contain"></section>
+
+
+			</section>
+
+			<section>
+				<section>
+					<h5>So, whats wrong with REST ?</h5>
+				</section>
+
+				<section data-background-image="img/graph_vs_rest.png" data-background-size="contain">
+				</section>
+
+				<section>
+					<ul>
+						<li>Collection of endpoints (each endpoint - resource)</li>
+						<li>No control - overfetching</li>
+						<li>Versioning</li>
+					</ul>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h5>Is graphQL easy to secure ?</h5>
+				</section>
+
+				<section>
+					<ul>
+						<li>"query language" (different from sql)</li>
+						<li>Structured way of calling REST calls</li>
+						<li>Instead of exposing all the capabilities of various backends and databases, graphQL exposes only those that your app
+							needs.
+						</li>
+						<li>Tight access control</li>
+					</ul>
+				</section>
+			</section>
+
+			<section>
+				<h5>Main principles</h5>
+				<ul>
+					<li>Client specified queries</li>
+					<li>Defines a data shape</li>
+					<li>Hierarhical</li>
+					<li>Strong typing</li>
+					<li>Product centric</li>
+					<li>Version free</li>
+					<li>Introspection</li>
+				</ul>
+			</section>
+
+			<section>
+
+				<section>
+					<ul>
+						<li>
+							Schema
+							<ul>
+								<li>Queries</li>
+								<li>Mutations</li>
+							</ul>
+						</li>
+						<li>Resolvers</li>
+					</ul>
+				</section>
+
+				<section>
+					<h5>Simple query example (
+						<a href="#graphiql">playground</a>) </h5>
+					<pre><code class="babel" data-trim contenteditable>
+						query {
+							getAuthor(id: 5) {
+								id
+								name
+								posts {
+									title
+									body
+								}
+							}
+						}
+					</code></pre>
+				</section>
+
+				<section>
+					<h5>Simple mutation example (
+						<a href="#graphiql">playground</a>) </h5>
+					<pre><code class="babel" data-trim contenteditable>
+							mutation {
+								addAuthor(name: "John Doe") {
+									id
+									name
+								}
+							}
+						</code></pre>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<ul>
+						<li>Fragments</li>
+						<li>Directives</li>
+						<li>...</li>
+					</ul>
+				</section>
+
+				<section>
+					<h5>Simple fragment example</h5>
+					<pre><code class="babel" data-trim contenteditable>
+							query {
+								drumsets: products(product_category_id: 1) {
+									...ProductCommonFields
+									pieces
+									shell_size
+									shell_type
+								}
+
+								cymbals: products(product_category_id: 2) {
+									...ProductCommonFields
+									cymbal_size
+								}
+							}
+
+							fragment ProductCommonFields on Product {
+								id
+								name
+								manufacturer
+								price
+							}
+						</code></pre>
+				</section>
+
+			</section>
+
+			<section>
+				<h5>Server, Client, Tooling</h5>
+			</section>
+
+			<section>
+				<section>
+					<h5>Server</h5>
+				</section>
+				<section>
+					<h5>Many different programming languages support graphQL</h5>
+					<ul>
+						<li>C# / .NET</li>
+						<li>Clojure</li>
+						<li>Elixir</li>
+						<li>Erlang</li>
+						<li>Go</li>
+						<li>Groovy</li>
+						<li>Java</li>
+						<li>Javascript</li>
+						<li>PHP</li>
+						<li>Python</li>
+						<li>Scala</li>
+						<li>Ruby</li>
+					</ul>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h5>Client</h5>
+				</section>
+				<section>
+					<h5>Why choose graphQL client ?</h5>
+					<h5>Redux ? </h5>
+					<h5>Vuex ?</h5>
+					<h5 class="fragment">Maximize the benefits</h5>
+					<h5 class="fragment">Query and data cache (smart queries)</h5>
+				</section>
+
+				<section>
+					<h5>Relay vs Apollo</h5>
+					<ul>
+						<li>Similar, not the same</li>
+					</ul>
+				</section>
+
+				<section data-background-image="img/client.png" data-background-size="contain" data-background-color="#11CBD7">
+				</section>
+
+			</section>
+
+			<section>
+				<section>Tooling</section>
+
+				<section id="graphiql">
+					<h5>Graphiql</h5>
+					<iframe class="stretch" data-src="http://localhost:8080/graphiql"></iframe>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h5>Apollo</h5>
+					<a href="https://www.apollographql.com/">Documentation</a>
+				</section>
+
+				<section>
+					<h5>The apollo platform</h5>
+					<ul>
+						<li>Apollo client</li>
+						<li>Apollo engine</li>
+						<li>Apollo server</li>
+					</ul>
+				</section>
+
+				<section>
+					<h5>Client</h5>
+					<ul>
+						<li>React</li>
+						<li>Vue</li>
+						<li>Angular</li>
+						<li>Android</li>
+						<li>iOS</li>
+						<li>Meteor</li>
+					</ul>
+				</section>
+
+				<section data-background-image="img/devtools.png" data-background-size="contain">
+					<h5>Apollo client DevTools</h5>
+				</section>
+				<section data-background-image="img/eslint.jpg" data-background-size="contain">
+					<h5>Eslint integration</h5>
+				</section>
+				<section data-background-image="img/codegen.png" data-background-size="contain">
+					<h5>Apollo codegen</h5>
+				</section>
+
+				<section>
+					<h5>Engine</h5>
+					<p>
+						Apollo Engine is the only product that provides GraphQL-specific API management features, hand-crafted based on years of
+						conversations with developers using GraphQL.
+					</p>
+				</section>
+
+				<section data-background-image="img/cache.png" data-background-size="contain">
+					<h5>GraphQL caching</h5>
+				</section>
+				<section data-background-image="img/trace.png" data-background-size="contain">
+					<h5>Query execution trace</h5>
+				</section>
+				<section data-background-image="img/error.png" data-background-size="contain">
+					<h5>Error tracking</h5>
+				</section>
+
+				<section>
+					<h5>Free forever</h5>
+					<p>Engine is completely free up to 1 million requests per month.</p>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h5>Apollo cache</h5>
+					<p class="fragment">apollo-cache-inmemory</p>
+					<pre class="fragment"><code class="babel" data-trim>
+						npm install apollo-cache-inmemory --save
+					</code></pre>
+				</section>
+				<section>
+					<h5>Initialization</h5>
+					<pre class="fragment"><code class="babel" data-trim>
+							import { InMemoryCache } from 'apollo-cache-inmemory';
+							import { HttpLink } from 'apollo-link-http';
+							import ApolloClient from 'apollo-client';
+							
+							const cache = new InMemoryCache();
+							
+							const client = new ApolloClient({
+							  link: new HttpLink(),
+							  cache
+							});
+					</code></pre>
+				</section>
+				<section>
+					<h5>Normalization</h5>
+					<ul>
+						<li>InMemoryCache</li>
+						<li>Individual objects</li>
+						<li>Meta keys</li>
+					</ul>
+				</section>
+				<section>
+					<h5>Manipulation</h5>
+					<ul>
+						<li>readQuery, readFragment</li>
+						<li>writeQuery, writeFragment</li>
+						<li>LOCALLY!</li>
+					</ul>
+				</section>
+				<section>
+					<h5>Fetch policy</h5>
+					<ul>
+						<li>Cache first</li>
+						<li>Cache and network</li>
+						<li>Network only</li>
+						<li>Cache only</li>
+					</ul>
+				</section>
+				<section>
+					<h5>Error policy</h5>
+					<ul>
+						<li>None (runtime error)</li>
+						<li>Ignore</li>
+						<li>All</li>
+					</ul>
+				</section>
+				<section>
+					<h5>Polling</h5>
+					<ul>
+						<li>stopPolling</li>
+						<li>startPolling</li>
+					</ul>
+				</section>
+
+				<section>
+					<h5>Apollo batching</h5>
+					<p>What is query batching ?</p>
+					<pre><code class="babel" data-trim>
+								const client = new ApolloClient({
+									// ... other options ...
+									shouldBatch: true,
+								   });
+						</code></pre>
+				</section>
+
+				<section data-background-image="img/batching.png" data-background-size="contain">
+					<ul>
+						<li>Ticks</li>
+						<li>10ms</li>
+					</ul>
+				</section>
+
+			</section>
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		Reveal.initialize({
+			dependencies: [{
+					src: 'plugin/markdown/marked.js'
+				},
+				{
+					src: 'plugin/markdown/markdown.js'
+				},
+				{
+					src: 'plugin/notes/notes.js',
+					async: true
+				},
+				{
+					src: 'plugin/highlight/highlight.js',
+					async: true,
+					callback: function () {
+						hljs.initHighlightingOnLoad();
+					}
+				}
+			],
+			maxScale: 1.5
+		});
+	</script>
+</body>
+
+</html>
